@@ -1,0 +1,25 @@
+Title: Using an LLM to Help With Code Understanding
+
+Abstract:
+Understanding code is challenging, especially when working in new and complex development environments. Code comments and documentation can help, but are typically scarce or hard to navigate. Large language models (LLMs) are revolutionizing the process of writing code. Can they do the same for helping understand it? In this study, we provide a first investigation of an LLM-based conversational UI built directly in the IDE. Our IDE plugin queries OpenAI's GPT-3.5-turbo model with four "prompt-less" requests. The plugin also allows for open-ended prompts, which are automatically contextualized to the LLM. We evaluate this system in a preliminary user study with 12 participants from a single university, which suggests that our plugin might aid task completion in some scenarios more than web search. We additionally provide a brief analysis of how the participants used the system, with some anecdotal evidence suggesting potential differences in usage patterns. We conclude that in-IDE prompt-less interaction with LLMs is a promising future direction.
+
+Introduction:
+Building and maintaining software systems requires a deep understanding of a codebase. Consequently, developers spend a significant amount of time searching for information. Understanding code is a challenging task, as information is often scattered, inadequately documented, or outdated.
+
+With the growing popularity of LLM-based code generation tools, the need for code understanding support is arguably growing. To explore this, we developed a prototype in-IDE LLM information support tool, GILT. GILT generates on-demand information while considering the user's local code context. We hypothesized that a "prompt-less" interaction method could be useful, though this was not the primary focus of our tool's design.
+
+Methodology:
+We developed GILT, a VS Code IDE plugin using GPT-3.5-turbo. GILT provides code understanding support through "prompt-less" buttons and direct queries.
+
+We conducted an informal user study with 12 undergraduate computer science students from a single class. We used a between-subjects design, where 6 participants used GILT (in VS Code) and 6 used traditional web search (in a separate browser), without controlling for the effects of context switching. Participants had to understand and modify unfamiliar Python code using the Bokeh library. We measured task completion time and collected subjective feedback via unstructured interviews. Code understanding was not formally assessed.
+
+Results:
+Participants using GILT had a slightly higher task completion rate, though the difference was not statistically significant (p=0.35), which we attribute to our small sample size. Participants using GILT reported feeling more productive, but we observed no significant difference in actual task completion time. Code understanding was not measured.
+
+All participants were students, so no comparison between students and professionals could be made. Feedback from interviews was mixed. While some users praised the in-IDE context, others found the "prompt-less" buttons confusing and often preferred using the familiar web search.
+
+Conclusion:
+We presented the results of a preliminary user study. Despite the lack of statistical significance, our qualitative data suggests that in-IDE LLMs are a promising area for future work, and our tool points to the future of development. Further research is needed to determine if these findings apply to other user groups beyond students or on more complex, real-world tasks.
+
+References:
+[1] Amoozadeh, M., et al. (2023). Trust in Generative Al among students: An Exploratory Study. arXiv:2310,04631. [2] Barke, S., James, M. B., & Polikarpova, N. (2023). Grounded Copilot: How Programmers Interact with Code-Generating Models. Proc. ACM Program. Lang. [3] Barnaby, C., et al. (2020). Exempla Gratis (E.G.): Code Examples for Free. In Proceedings of the 28th ACM Joint Meeting on European Software Engineering Conference (ESEC/FSE 2020). [4] Beckwith, L., et al. (2006). Tinkering and gender in end-user programmers debugging. In Proceedings of the 2006 Conference on Human Factors in Computing Systems (CHI 2006). [5] Bokeh. (2023). Bokeh. https://bokeh.org/
