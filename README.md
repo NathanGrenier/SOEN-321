@@ -51,7 +51,7 @@ cp .env.example .env
 
 You'll need API keys from one or more LLM providers:
 
-- **OpenAI**: Get your key at https://platform.openai.com/api-keys
+- **Gemini**: Get your key at https://aistudio.google.com/api-keys
 
 Add these keys to your `.env` file.
 
