@@ -11,7 +11,7 @@ This repository provides tools and notebooks for researching adversarial stegano
 - Python scripts for testing LLM APIs with steganographic prompts
 - Jupyter notebooks for interactive experimentation
 - Sample research papers for testing
-- Support for multiple LLM providers
+- Support for multiple LLM providers (Google, )
 
 ## Setup
 
