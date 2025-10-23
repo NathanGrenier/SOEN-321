@@ -18,3 +18,6 @@ To add a new research paper:
 ## Sample Paper
 
 A sample research paper (`sample_paper.txt`) is included as a reference for the expected format.
+
+## List of Research Papers
+- `llm_code_understanding.txt`: https://dl.acm.org/doi/pdf/10.1145/3597503.3639187 
