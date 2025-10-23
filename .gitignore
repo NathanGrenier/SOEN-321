@@ -1,3 +1,6 @@
+# Results
+results/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -48,8 +51,3 @@ Thumbs.db
 # uv
 .uv/
 uv.lock
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
