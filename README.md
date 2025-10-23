@@ -8,8 +8,7 @@ This project focuses on testing LLM AI adversarial steganographic attack prompts
 
 This repository provides tools and notebooks for researching adversarial steganographic attacks on Large Language Models (LLMs). The project includes:
 
-- Python scripts for testing LLM APIs with steganographic prompts
-- Jupyter notebooks for interactive experimentation
+- Jupyter notebooks for interactive experimentation and analysis
 - Sample research papers for testing
 - Support for multiple LLM providers (Google, )
 
@@ -46,11 +45,7 @@ cp .env.example .env
 # Edit .env and add your API keys
 ```
 
-3. Run the Test Script
-
-```bash
-python3 -m uv run scripts/test_llm_steganography.py
-```
+3. Run the Jupyter Notebook
 
 ### API Keys
 
@@ -61,14 +56,6 @@ You'll need API keys from one or more LLM providers:
 Add these keys to your `.env` file.
 
 ## Usage
-
-### Using Python Scripts
-
-Run the test script to analyze research papers with steganographic prompts:
-
-```bash
-python3 -m uv run scripts/test_llm_steganography.py
-```
 
 ### Using Jupyter Notebooks
 
