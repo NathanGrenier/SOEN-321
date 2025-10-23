@@ -11,9 +11,16 @@ This repository provides tools and notebooks for researching adversarial stegano
 - Python scripts for testing LLM APIs with steganographic prompts
 - Jupyter notebooks for interactive experimentation
 - Sample research papers for testing
-- Support for multiple LLM providers (OpenAI, Anthropic)
+- Support for multiple LLM providers
 
 ## Setup
+
+This repository now includes:
+
+### Python Project with `uv` Package Manager
+- **pyproject.toml**: Project configuration with dependencies
+- **uv package manager**: Fast, modern Python package manager
+- **Python 3.12**: Latest stable Python version
 
 ### Prerequisites
 
@@ -30,7 +37,7 @@ cd SOEN-321
 
 2. Install dependencies using uv:
 ```bash
-python3 -m uv sync
+python3 -m uv sync --all-extras
 ```
 
 3. Configure API keys:
@@ -39,31 +46,19 @@ cp .env.example .env
 # Edit .env and add your API keys
 ```
 
+3. Run the Test Script
+
+```bash
+python3 -m uv run scripts/test_llm_steganography.py
+```
+
 ### API Keys
 
 You'll need API keys from one or more LLM providers:
 
 - **OpenAI**: Get your key at https://platform.openai.com/api-keys
-- **Anthropic**: Get your key at https://console.anthropic.com/settings/keys
 
 Add these keys to your `.env` file.
-
-## Project Structure
-
-```
-SOEN-321/
-├── research_papers/       # Research paper documents (text files)
-│   ├── sample_paper.txt  # Example research paper
-│   └── README.md         # Documentation for papers directory
-├── scripts/              # Python scripts for testing
-│   └── test_llm_steganography.py  # Main testing script
-├── notebooks/            # Jupyter notebooks for analysis
-│   └── steganography_testing.ipynb  # Interactive testing notebook
-├── .env.example         # Template for environment variables
-├── .gitignore          # Git ignore rules
-├── pyproject.toml      # Project dependencies
-└── README.md           # This file
-```
 
 ## Usage
 
@@ -96,27 +91,37 @@ python3 -m uv run jupyter notebook
 2. Save it in the `research_papers/` directory
 3. Use it in your scripts or notebooks
 
-## Research Focus
-
-This project explores:
-
-- **Adversarial Steganography**: Hiding malicious instructions within legitimate prompts
-- **Prompt Injection**: Testing various injection techniques on LLMs
-- **Security Analysis**: Evaluating LLM robustness against steganographic attacks
-- **Research Paper Context**: Using academic papers as cover text for attacks
-
 ## Development
 
-### Running Tests
+### Adding New Dependencies
 
 ```bash
-python3 -m uv run pytest
+# Add a new package
+python3 -m uv add package-name
+
+# Add a dev dependency
+python3 -m uv add --dev package-name
 ```
 
-### Adding Dependencies
+### Running Code
 
 ```bash
-python3 -m uv add package-name
+# Run with uv (uses .venv automatically)
+python3 -m uv run python script.py
+
+# Or activate venv manually
+source .venv/bin/activate
+python script.py
+```
+
+### Updating Dependencies
+
+```bash
+# Update all dependencies
+python3 -m uv sync --upgrade
+
+# Update specific package
+python3 -m uv add --upgrade package-name
 ```
 
 ### Code Style
@@ -127,14 +132,37 @@ The project follows standard Python conventions. Format code using:
 python3 -m uv run black .
 ```
 
-## Contributing
+This will format all Python files (`.py`) and Jupyter Notebooks (`.ipynb`) in the project.
 
-This is an academic project for SOEN 321 at Concordia University. Contributions should align with the course objectives and academic integrity policies.
+## Troubleshooting
 
-## License
+### Issue: API Key Not Found
 
-See the LICENSE file for details.
+```bash
+# Make sure .env exists and has keys
+cat .env
 
-## Disclaimer
+# Should show:
+# OPENAI_API_KEY=sk-...
+```
 
-This research is for educational and security research purposes only. Users are responsible for ensuring their use complies with applicable laws, regulations, and the terms of service of any LLM providers.
+### Issue: Dependencies Not Installing
+
+```bash
+# Try reinstalling uv
+python3 -m pip install --upgrade uv
+
+# Clear cache and reinstall
+rm -rf .venv/
+python3 -m uv sync
+```
+
+### Issue: Jupyter Not Starting
+
+```bash
+# Make sure ipykernel is installed
+python3 -m uv run python -m ipykernel --version
+
+# Reinstall if needed
+python3 -m uv add jupyter ipykernel
+```
