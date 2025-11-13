@@ -153,3 +153,26 @@ python3 -m uv run python -m ipykernel --version
 # Reinstall if needed
 python3 -m uv add jupyter ipykernel
 ```
+
+### Setting Up Ollama
+Head to the download page get the version appropriate for your OS.
+[Ollama](https://ollama.com/download)
+
+After running the executable you should be able to start Ollama and download a model.
+
+```bash
+# Installing qwen2.5:3b with Ollama
+ollama pull qwen2.5:3b
+```
+
+### Setting up OpenWeb
+Their github has instructions on how to install, if you run into trouble go here.
+[OpenWeb Platform](https://github.com/open-webui/open-webui)
+
+To install OpenWeb UI with Nvidia GPU support (make sure docker is running) run this command:
+```bash
+docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda
+```
+The platform will be available at [localhost:3000](http://localhost:3000/)
+
+You can find your API key under account settings
