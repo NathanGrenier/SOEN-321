@@ -10,21 +10,20 @@ This repository provides tools and notebooks for researching adversarial stegano
 
 - Jupyter notebooks for interactive experimentation and analysis
 - Sample research papers for testing
-- Support for multiple LLM providers (Google, )
+- Support for multiple open weight LLM providers (ex: Qwen, DeepSeek, Gemma)
+
+### Models
+
+- [Qwen3_4b](https://ollama.com/library/qwen3:4b)
+- [DeepseekR1_8b](https://ollama.com/library/deepseek-r1:8b)
+- [Gemma3_4b](https://ollama.com/library/gemma3:4b)
 
 ## Setup
-
-This repository now includes:
-
-### Python Project with `uv` Package Manager
-- **pyproject.toml**: Project configuration with dependencies
-- **uv package manager**: Fast, modern Python package manager
-- **Python 3.12**: Latest stable Python version
-
 ### Prerequisites
 
 - Python 3.12 or higher
 - [uv](https://github.com/astral-sh/uv) package manager
+- Ollama
 
 ### Installation
 
@@ -39,21 +38,36 @@ cd SOEN-321
 python3 -m uv sync --all-extras
 ```
 
-3. Configure API keys:
+### Setting Up Ollama
+Head to the download page get the version appropriate for your OS.
+[Ollama](https://ollama.com/download)
+
+#### MacOS
+Download and install Ollama for Mac using [this link](https://ollama.com/download/mac).
+
+A more in depth requirements page can be found on [Ollama MacOS Docs](https://docs.ollama.com/macos).
+
+##### Running a Model
+After running the executable you should be able to start Ollama and download a model.
+
 ```bash
-cp .env.example .env
-# Edit .env and add your API keys
+# Installing qwen2.5:3b with Ollama
+ollama pull qwen2.5:3b
 ```
 
-3. Run the Jupyter Notebook
+#### Windows/Linux (Docker)
+Follow [this guide](https://docs.ollama.com/docker) to setup Ollama using Docker. Make sure to install the necessary software for your GPU.
 
-### API Keys
+##### Running a Model
+Simply use Docker Compose to start the Ollama service: `docker compose up -d`
 
-You'll need API keys from one or more LLM providers:
+You can use the following command to restart the Ollama docker container: `docker compose restart ollama`
+> Note: This will clear the loaded model from your GPU
 
-- **Gemini**: Get your key at https://aistudio.google.com/api-keys
+##### Useful Commands
 
-Add these keys to your `.env` file.
+- View Loaded Models: `docker exec -it ollama ollama ps`
+- View Downloaded Models: `docker exec -it ollama ollama list`
 
 ## Usage
 
@@ -122,16 +136,6 @@ python3 -m uv run black .
 This will format all Python files (`.py`) and Jupyter Notebooks (`.ipynb`) in the project.
 
 ## Troubleshooting
-
-### Issue: API Key Not Found
-
-```bash
-# Make sure .env exists and has keys
-cat .env
-
-# Should show:
-# OPENAI_API_KEY=sk-...
-```
 
 ### Issue: Dependencies Not Installing
 
