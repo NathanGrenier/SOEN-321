@@ -1,0 +1,25 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - llm_network
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+
+networks:
+  llm_network:
+    driver: bridge
