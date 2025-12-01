@@ -30,15 +30,23 @@ The notebook will automatically check the connection on startup.
 ### 2. Required Models Downloaded
 
 ```bash
+# LLM models for evaluation
 ollama pull qwen3:4b
 ollama pull deepseek-r1:8b
 ollama pull gemma2:9b
 ollama pull qwen2.5:3b
+
+# Embedding model for RAG (required if USE_RAG = True)
+ollama pull nomic-embed-text
 ```
 
 The notebook will verify model availability and warn about missing models.
 
-### 3. Project Structure
+### 3. PDF Files in Place
+
+Ensure at least one research paper PDF is in `../research_papers_PDF/` directory.
+
+### 4. Project Structure
 
 SOEN-321/
 ├── notebooks/
@@ -49,6 +57,15 @@ SOEN-321/
     └── comprehensive_*.csv        # Test results
 
 ## Experiment Components
+
+### Steganographic Injection Strategy
+
+- **5 Main Injections**: Positioned 30px below section headers
+  - Abstract
+  - Introduction
+  - Results
+  - Discussion
+  - Conclusion
 
 ### Steganographic Techniques
 
@@ -113,11 +130,13 @@ Or use VS Code with Jupyter extension.
 USE_RAG = True  # True for RAG, False for full-text
 
 # RAG Settings (if USE_RAG = True)
-CHUNK_SIZE = 1000
-CHUNK_OVERLAP = 200
-NUM_CHUNKS_TO_RETRIEVE = 40
+CHUNK_SIZE = Characters per chunk
+CHUNK_OVERLAP =  overlap between chunks
+NUM_CHUNKS_TO_RETRIEVE =amount of chunks to retrieve
 EMBEDDING_MODEL = 'nomic-embed-text'
 ```
+
+**Important**: Ensure `nomic-embed-text` model is downloaded before using RAG mode.
 
 ### 3. Run Tests
 
@@ -214,11 +233,19 @@ Ensure PDF files are in `../research_papers_PDF/` directory.
 
 ## Notes
 
-- **Full-text mode**: Provides complete paper context to LLM, although not fully tested
-- **RAG mode**: Useful for very large documents or limited context windows
-- **Defense effectiveness**: Results show if security warnings prevent manipulation
+- **Full-text mode**: Provides complete paper context to LLM (not fully tested)
+- **RAG mode**: Uses semantic search to retrieve most relevant chunks
+- **Defense mechanisms**: Security warnings are embedded in evaluation prompts to test robustness
 - **Baseline tests**: Essential for measuring attack impact (compare attack vs baseline)
 - **CSV format**: Easy to analyze with pandas, Excel, or other data tools
+
+## Analysis
+
+After running experiments, use `analysis.ipynb` to:
+- Generate comprehensive statistics on attack success rates
+- Compare effectiveness across models, techniques, and payloads
+- Analyze defense mechanism effectiveness
+- Export formatted analysis reports
 
 ## Related Files
 
