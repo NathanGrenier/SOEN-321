@@ -15,8 +15,9 @@ This repository provides tools and notebooks for researching adversarial stegano
 ### Models
 
 - [Qwen3_4b](https://ollama.com/library/qwen3:4b)
+- [Qwen2.5_3b](https://ollama.com/library/qwen2.5:3b)
 - [DeepseekR1_8b](https://ollama.com/library/deepseek-r1:8b)
-- [Gemma3_4b](https://ollama.com/library/gemma3:4b)
+- [Gemma2_9b](https://ollama.com/library/gemma2:9b)
 
 ## Setup
 ### Prerequisites
@@ -78,19 +79,31 @@ You can use the following command to restart the Ollama docker container: `docke
 python3 -m uv run jupyter notebook
 ```
 
-2. Open `notebooks/steganography_testing.ipynb`
+2. Open `notebooks/Experiment.ipynb`
 
-3. Run the cells to:
-   - Load research papers
-   - Create steganographic prompts
-   - Test with different LLM APIs
-   - Analyze results
+3. Configure RAG settings:
+   - **NUM_CHUNKS_TO_RETRIEVE**: The amount of chunks you want to send to the LLM
+   - **CHUNK_SIZE**: Size of each chunk
+   - **CHUNK_OVERLAP**: How much the chunks overlap
+   
+
+4. Run the cells to:
+   - Load research papers from PDF format
+   - Apply steganographic injection techniques
+   - Test with different LLM models
+   - Generate comprehensive CSV results
+
+6. Open `notebooks/analysis.ipynb`
+
+7. Run the cells to:
+   - Analyze selected or most recent results
+   - Produce csv analysis files
 
 ### Adding Research Papers
 
-1. Convert your research paper to plain text
-2. Save it in the `research_papers/` directory
-3. Use it in your scripts or notebooks
+1. Obtain research paper in PDF format
+2. Save it in the `research_papers_PDF/` directory
+3. The experiment notebook will automatically detect and process it
 
 ## Development
 

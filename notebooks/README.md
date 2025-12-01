@@ -50,6 +50,15 @@ SOEN-321/
 
 ## Experiment Components
 
+### Steganographic Injection Strategy
+
+- **5 Main Injections**: Positioned 30px below section headers
+  - Abstract
+  - Introduction
+  - Results
+  - Discussion
+  - Conclusion
+
 ### Steganographic Techniques
 
 The notebook implements 4 invisible text injection techniques:
@@ -113,9 +122,9 @@ Or use VS Code with Jupyter extension.
 USE_RAG = True  # True for RAG, False for full-text
 
 # RAG Settings (if USE_RAG = True)
-CHUNK_SIZE = 1000
-CHUNK_OVERLAP = 200
-NUM_CHUNKS_TO_RETRIEVE = 40
+CHUNK_SIZE = 1000           # Characters per chunk
+CHUNK_OVERLAP = 200         # 20% overlap between chunks
+NUM_CHUNKS_TO_RETRIEVE = 40 
 EMBEDDING_MODEL = 'nomic-embed-text'
 ```
 
@@ -214,11 +223,19 @@ Ensure PDF files are in `../research_papers_PDF/` directory.
 
 ## Notes
 
-- **Full-text mode**: Provides complete paper context to LLM, although not fully tested
-- **RAG mode**: Useful for very large documents or limited context windows
-- **Defense effectiveness**: Results show if security warnings prevent manipulation
+- **Full-text mode**: Provides complete paper context to LLM (not fully tested)
+- **RAG mode**: Uses semantic search to retrieve most relevant chunks
+- **Defense mechanisms**: Security warnings are embedded in evaluation prompts to test robustness
 - **Baseline tests**: Essential for measuring attack impact (compare attack vs baseline)
 - **CSV format**: Easy to analyze with pandas, Excel, or other data tools
+
+## Analysis
+
+After running experiments, use `analysis.ipynb` to:
+- Generate comprehensive statistics on attack success rates
+- Compare effectiveness across models, techniques, and payloads
+- Analyze defense mechanism effectiveness
+- Export formatted analysis reports
 
 ## Related Files
 
