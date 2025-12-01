@@ -30,15 +30,23 @@ The notebook will automatically check the connection on startup.
 ### 2. Required Models Downloaded
 
 ```bash
+# LLM models for evaluation
 ollama pull qwen3:4b
 ollama pull deepseek-r1:8b
 ollama pull gemma2:9b
 ollama pull qwen2.5:3b
+
+# Embedding model for RAG (required if USE_RAG = True)
+ollama pull nomic-embed-text
 ```
 
 The notebook will verify model availability and warn about missing models.
 
-### 3. Project Structure
+### 3. PDF Files in Place
+
+Ensure at least one research paper PDF is in `../research_papers_PDF/` directory.
+
+### 4. Project Structure
 
 SOEN-321/
 ├── notebooks/
@@ -122,11 +130,13 @@ Or use VS Code with Jupyter extension.
 USE_RAG = True  # True for RAG, False for full-text
 
 # RAG Settings (if USE_RAG = True)
-CHUNK_SIZE = 1000           # Characters per chunk
-CHUNK_OVERLAP = 200         # 20% overlap between chunks
-NUM_CHUNKS_TO_RETRIEVE = 40 
+CHUNK_SIZE = Characters per chunk
+CHUNK_OVERLAP =  overlap between chunks
+NUM_CHUNKS_TO_RETRIEVE =amount of chunks to retrieve
 EMBEDDING_MODEL = 'nomic-embed-text'
 ```
+
+**Important**: Ensure `nomic-embed-text` model is downloaded before using RAG mode.
 
 ### 3. Run Tests
 

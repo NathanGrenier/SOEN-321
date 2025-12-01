@@ -48,29 +48,111 @@ Download and install Ollama for Mac using [this link](https://ollama.com/downloa
 
 A more in depth requirements page can be found on [Ollama MacOS Docs](https://docs.ollama.com/macos).
 
-##### Running a Model
-After running the executable you should be able to start Ollama and download a model.
+##### Downloading Required Models
+After installing Ollama, download all required models and the embedding model:
 
 ```bash
-# Installing qwen2.5:3b with Ollama
+# Start Ollama server (required for all operations)
+ollama serve
+
+# Download all LLM models used in experiments
+ollama pull qwen3:4b
 ollama pull qwen2.5:3b
+ollama pull deepseek-r1:8b
+ollama pull gemma2:9b
+
+# Download embedding model (required for RAG mode)
+ollama pull nomic-embed-text
 ```
+
+> **Note**: Keep the `ollama serve` terminal window open while running experiments.
 
 #### Windows/Linux (Docker)
 Follow [this guide](https://docs.ollama.com/docker) to setup Ollama using Docker. Make sure to install the necessary software for your GPU.
 
-##### Running a Model
-Simply use Docker Compose to start the Ollama service: `docker compose up -d`
+##### Starting Ollama and Downloading Models
 
-You can use the following command to restart the Ollama docker container: `docker compose restart ollama`
-> Note: This will clear the loaded model from your GPU
+```bash
+# Start Ollama service (runs in background)
+docker compose up -d
+
+# Download all required models (only needed once - persists in volume)
+docker exec -it ollama ollama pull qwen3:4b
+docker exec -it ollama ollama pull qwen2.5:3b
+docker exec -it ollama ollama pull deepseek-r1:8b
+docker exec -it ollama ollama pull gemma2:9b
+docker exec -it ollama ollama pull nomic-embed-text
+```
+
+The Ollama service will start automatically with `docker compose up -d`. Models are stored in the `ollama_data` volume and persist across container restarts.
+
+**Useful commands:**
+- Restart Ollama: `docker compose restart ollama` (clears loaded model from GPU)
+- Stop Ollama: `docker compose down`
 
 ##### Useful Commands
 
 - View Loaded Models: `docker exec -it ollama ollama ps`
 - View Downloaded Models: `docker exec -it ollama ollama list`
+- Check Ollama logs: `docker logs ollama`
 
 ## Usage
+
+### Quick Start - Running Your First Experiment
+
+**Complete setup checklist before running experiments:**
+
+1. **Start Ollama**:
+   - **macOS**: `ollama serve` (keep terminal open)
+   - **Windows/Linux (Docker)**: `docker compose up -d` (runs in background)
+
+2. **Download all required models** (only needed once):
+   
+   **macOS**:
+
+   ```bash
+   ollama pull qwen3:4b
+   ollama pull qwen2.5:3b
+   ollama pull deepseek-r1:8b
+   ollama pull gemma2:9b
+   ollama pull nomic-embed-text
+   ```
+   
+   **Windows/Linux (Docker)**:
+
+   ```bash
+   docker exec -it ollama ollama pull qwen3:4b
+   docker exec -it ollama ollama pull qwen2.5:3b
+   docker exec -it ollama ollama pull deepseek-r1:8b
+   docker exec -it ollama ollama pull gemma2:9b
+   docker exec -it ollama ollama pull nomic-embed-text
+   ```
+
+3. **Verify models are downloaded**:
+   - **macOS**: `ollama list`
+   - **Windows/Linux (Docker)**: `docker exec -it ollama ollama list`
+   
+   Should show: `qwen3:4b`, `qwen2.5:3b`, `deepseek-r1:8b`, `gemma2:9b`, `nomic-embed-text`
+
+4. **Add at least one PDF research paper**:
+   - Place PDF file in `research_papers_PDF/` directory
+   - Example: `research_papers_PDF/my_paper.pdf`
+
+5. **Start Jupyter**:
+
+   ```bash
+   python3 -m uv run jupyter notebook
+   ```
+
+6. **Open and run `notebooks/Experiment.ipynb`**:
+   - The notebook will verify Ollama connection and model availability
+   - Configure RAG settings
+   - Run numeric or categorical evaluation cells
+   - Results saved to `results/` directory
+
+7. **Analyze results with `notebooks/analysis.ipynb`**:
+   - Automatically detects latest result files
+   - Generates statistical summaries and comparisons
 
 ### Using Jupyter Notebooks
 
@@ -81,21 +163,23 @@ python3 -m uv run jupyter notebook
 
 2. Open `notebooks/Experiment.ipynb`
 
-3. Configure RAG settings:
-   - **NUM_CHUNKS_TO_RETRIEVE**: The amount of chunks you want to send to the LLM
-   - **CHUNK_SIZE**: Size of each chunk
-   - **CHUNK_OVERLAP**: How much the chunks overlap
-   
+3. Configure RAG settings (Cell 5 in notebook):
+   - **USE_RAG**: `True` for RAG mode (recommended), `False` for full-text
+   - **CHUNK_SIZE**: characters per chunk
+   - **CHUNK_OVERLAP**: amount of characters to overlap per chunk
+   - **NUM_CHUNKS_TO_RETRIEVE**: amount of chunks to retrieve
+   - **EMBEDDING_MODEL**: `nomic-embed-text`
 
-4. Run the cells to:
+4. Run experiment cells:
+   - Notebook verifies Ollama connection and models
    - Load research papers from PDF format
    - Apply steganographic injection techniques
-   - Test with different LLM models
-   - Generate comprehensive CSV results
+   - Test with all 4 LLM models
+   - Generate comprehensive CSV results (228 tests per paper)
 
-6. Open `notebooks/analysis.ipynb`
+5.  Open `notebooks/analysis.ipynb`
 
-7. Run the cells to:
+6. Run the cells to:
    - Analyze selected or most recent results
    - Produce csv analysis files
 
